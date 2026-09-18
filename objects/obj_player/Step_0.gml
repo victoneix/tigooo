@@ -1,5 +1,4 @@
 moving();
-show_debug_message(coyote_time);
 
 if(keyboard_check_pressed(vk_f1)){
 	var _dt = date_current_datetime();
