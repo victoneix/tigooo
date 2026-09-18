@@ -1,22 +1,49 @@
-spd = 2;
 hspd = 0;
 vspd = 0;
 grav = 0.4;
+
+move_dir = 0;
+move_spd = 0;
+move_spd_max = 3;
+acc = .3;
+dcc = .3;
 coll = obj_collision;
 
 moving = function(){
 	var _right	= keyboard_check(ord("D"));
 	var _left	= keyboard_check(ord("A"));
 	var _jump	= keyboard_check(ord("W"));
+	var _move	= (_right - _left) != 0;
 	
-	hspd = (_right - _left)*spd;
 	vspd += grav;
 	vspd = clamp(vspd, -7,7);
+	
+	if(_move){
+		move_dir = point_direction(0,0,_right - _left,0);
+		move_spd = approach(move_spd,move_spd_max,acc);
+	} else{
+		move_spd = approach(move_spd,0,dcc);
+	}
+	
+	hspd = lengthdir_x(move_spd,move_dir);
 	
 	if(place_meeting(x,y+1,coll) && _jump){
 		vspd = 0;
 		vspd -= 7;
 	}
+}
+
+approach = function(val1 = 0, val2 = 0, amount = 0){
+	if(val1 < val2){
+		val1 += amount
+		if(val1 > val2)
+			return val2;
+	} else{
+		val1 -= amount
+		if(val1 < val2)
+			return val2;
+	}
+	return val1;
 }
 
 collision = function(){
