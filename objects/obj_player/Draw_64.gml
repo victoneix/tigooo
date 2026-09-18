@@ -6,5 +6,5 @@ draw_set_font(-1);
 var _d = 0;
 repeat(life){
 	draw_sprite_ext(spr_life,0,4*_d,48,4,4,0,c_white,1);
-	_d += 16;
+	_d += 8;
 }
