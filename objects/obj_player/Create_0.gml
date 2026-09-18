@@ -41,11 +41,32 @@ moving = function(){
 	if(_move){
 		move_dir = point_direction(0,0,_right - _left,0);
 		move_spd = approach(move_spd,move_spd_max,acc);
+		sprite_index = spr_player_walk;
 	} else{
+		sprite_index = spr_player_idle;
 		move_spd = approach(move_spd,0,dcc);
 	}
 	
 	hspd = lengthdir_x(move_spd,move_dir);
+	
+	teleport();
+}
+
+teleport = function(){
+	var _siz_w = 10;
+	var _siz_h = 16;
+	
+	if(x < -_siz_w){
+		x = room_width + _siz_w;
+	} else if(x > room_width + _siz_w){
+		x = -_siz_w;
+	}
+	
+	if(y < -_siz_h){
+		y = room_height + _siz_h;
+	} else if(y > room_height + _siz_h){
+		y = -_siz_h;
+	}
 }
 
 approach = function(val1 = 0, val2 = 0, amount = 0){
