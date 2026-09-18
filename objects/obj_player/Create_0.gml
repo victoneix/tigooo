@@ -3,15 +3,17 @@ vspd = 0;
 grav = 0.4;
 vspd_min = -7;
 vspd_max = 7;
+state = "normal";
 
 move_dir = 0;
 move_spd = 0;
-move_spd_max = 3;
+move_spd_max = 2;
 acc = .3;
 dcc = .3;
 coll = obj_collision;
 
-jump_height = 7;
+stepping = false;
+jump_height = 6;
 coyote_time_max = 10;
 coyote_time = 0;
 
@@ -34,16 +36,45 @@ moving = function(){
 	
 	hspd = lengthdir_x(move_spd,move_dir);
 	
-	if(_ground){
-		coyote_time = coyote_time_max;
-	} else{
-		coyote_time--;
-	}
+	switch(state){
+		case "normal":
+			if(_ground){
+				coyote_time = coyote_time_max;
+			} else{
+				coyote_time--;
+			}
 	
-	if(coyote_time > 0 && _jump){
-		vspd = 0;
-		coyote_time = 0;
-		vspd -= 7;
+			if(coyote_time > 0 && _jump){
+				vspd = 0;
+				coyote_time = 0;
+				vspd -= jump_height;
+			}
+		break;
+		
+		case "gravity":
+			var _ground_donw	= place_meeting(x,y+1,coll);
+			var _ground_top		= place_meeting(x,y-1,coll);
+			
+			if(_ground_donw){
+				coyote_time = coyote_time_max;
+				stepping = true;
+			} else if(_ground_top){
+				coyote_time = coyote_time_max;
+				stepping = false;
+			} else{
+				coyote_time--;
+			}
+			
+			if(stepping && (coyote_time > 0 && _jump)){
+				vspd = 0;
+				coyote_time = 0;
+				vspd -= jump_height;
+			} else if(!stepping && (coyote_time > 0 && _jump)){
+				vspd = 0;
+				coyote_time = 0;
+				vspd += jump_height;
+			}
+		break;
 	}
 }
 
