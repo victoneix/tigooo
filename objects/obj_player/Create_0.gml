@@ -50,6 +50,7 @@ moving = function(){
 	}
 	
 	hspd = lengthdir_x(move_spd,move_dir);
+	if(place_meeting(x,y,obj_spiky)) room_restart();
 	
 	teleport();
 }

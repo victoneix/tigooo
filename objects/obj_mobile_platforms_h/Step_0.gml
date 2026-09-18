@@ -1,4 +1,5 @@
 vspd = move_dir * move_spd;
+teleport();
 if(place_meeting(x,y+sign(vspd),obj_collision)){
 	move_dir *= -1;
 }
