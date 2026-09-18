@@ -1,6 +1,8 @@
 hspd = 0;
 vspd = 0;
 grav = 0.4;
+vspd_min = -7;
+vspd_max = 7;
 
 move_dir = 0;
 move_spd = 0;
@@ -9,14 +11,19 @@ acc = .3;
 dcc = .3;
 coll = obj_collision;
 
+jump_height = 7;
+coyote_time_max = 10;
+coyote_time = 0;
+
 moving = function(){
 	var _right	= keyboard_check(ord("D"));
 	var _left	= keyboard_check(ord("A"));
 	var _jump	= keyboard_check(ord("W"));
 	var _move	= (_right - _left) != 0;
+	var _ground	= place_meeting(x,y+1,coll);
 	
 	vspd += grav;
-	vspd = clamp(vspd, -7,7);
+	vspd = clamp(vspd,vspd_min,vspd_max);
 	
 	if(_move){
 		move_dir = point_direction(0,0,_right - _left,0);
@@ -27,8 +34,15 @@ moving = function(){
 	
 	hspd = lengthdir_x(move_spd,move_dir);
 	
-	if(place_meeting(x,y+1,coll) && _jump){
+	if(_ground){
+		coyote_time = coyote_time_max;
+	} else{
+		coyote_time--;
+	}
+	
+	if(coyote_time > 0 && _jump){
 		vspd = 0;
+		coyote_time = 0;
 		vspd -= 7;
 	}
 }
