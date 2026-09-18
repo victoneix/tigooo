@@ -1,10 +1,10 @@
 hspd = 0;
 vspd = 0;
 grav = 0.4;
+life_max = 3;
+life = life_max;
 vspd_min = -7;
 vspd_max = 7;
-
-num = 0;
 
 move_dir = 0;
 move_spd = 0;
@@ -50,9 +50,19 @@ moving = function(){
 	}
 	
 	hspd = lengthdir_x(move_spd,move_dir);
-	if(place_meeting(x,y,obj_spiky)) room_restart();
+	if(place_meeting(x,y,obj_spiky)) damage();
 	
 	teleport();
+}
+
+damage = function(){
+	if(life > 1){
+		life--;
+		x = xstart;
+		y = ystart;
+	}else{
+		room_restart();
+	}
 }
 
 teleport = function(){
