@@ -3,7 +3,6 @@ vspd = 0;
 grav = 0.4;
 vspd_min = -7;
 vspd_max = 7;
-state = "normal";
 
 move_dir = 0;
 move_spd = 0;
@@ -12,7 +11,6 @@ acc = .3;
 dcc = .3;
 coll = obj_collision;
 
-stepping = false;
 jump_height = 6;
 coyote_time_max = 10;
 coyote_time = 0;
@@ -20,12 +18,25 @@ coyote_time = 0;
 moving = function(){
 	var _right	= keyboard_check(ord("D"));
 	var _left	= keyboard_check(ord("A"));
-	var _jump	= keyboard_check(ord("W"));
+	var _jump	= keyboard_check_pressed(ord("W"));
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
 	
 	vspd += grav;
 	vspd = clamp(vspd,vspd_min,vspd_max);
+	if(hspd != 0) image_xscale = sign(hspd);
+	
+	if(_ground){
+			coyote_time = coyote_time_max;
+		} else{
+			coyote_time--;
+		}
+	
+		if(coyote_time > 0 && _jump){
+			vspd = 0;
+			coyote_time = 0;
+			vspd -= jump_height;
+		}
 	
 	if(_move){
 		move_dir = point_direction(0,0,_right - _left,0);
@@ -35,47 +46,6 @@ moving = function(){
 	}
 	
 	hspd = lengthdir_x(move_spd,move_dir);
-	
-	switch(state){
-		case "normal":
-			if(_ground){
-				coyote_time = coyote_time_max;
-			} else{
-				coyote_time--;
-			}
-	
-			if(coyote_time > 0 && _jump){
-				vspd = 0;
-				coyote_time = 0;
-				vspd -= jump_height;
-			}
-		break;
-		
-		case "gravity":
-			var _ground_donw	= place_meeting(x,y+1,coll);
-			var _ground_top		= place_meeting(x,y-1,coll);
-			
-			if(_ground_donw){
-				coyote_time = coyote_time_max;
-				stepping = true;
-			} else if(_ground_top){
-				coyote_time = coyote_time_max;
-				stepping = false;
-			} else{
-				coyote_time--;
-			}
-			
-			if(stepping && (coyote_time > 0 && _jump)){
-				vspd = 0;
-				coyote_time = 0;
-				vspd -= jump_height;
-			} else if(!stepping && (coyote_time > 0 && _jump)){
-				vspd = 0;
-				coyote_time = 0;
-				vspd += jump_height;
-			}
-		break;
-	}
 }
 
 approach = function(val1 = 0, val2 = 0, amount = 0){
