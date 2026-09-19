@@ -51,6 +51,19 @@ moving = function(){
 	
 			hspd = lengthdir_x(move_spd,move_dir);
 			if(place_meeting(x,y,obj_spiky)) damage();
+			
+			if(!_ground && vspd > 0){
+				var _collision_e = instance_place(x,y+1,obj_goomba);
+				if(_collision_e){
+					vspd = 0;
+					vspd -= jump_height;
+					instance_destroy(_collision_e.id);
+				}
+			} else{
+				if(place_meeting(x,y,obj_goomba)){
+					damage();
+				}
+			}
 	
 			teleport();
 		break;
