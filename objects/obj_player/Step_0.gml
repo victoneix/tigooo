@@ -1,5 +1,7 @@
 moving();
 
+show_debug_message(return_time);
+
 if(keyboard_check_pressed(vk_f1)){
 	var _dt = date_current_datetime();
 	var _yea = string(date_get_year(_dt));

@@ -1,10 +1,13 @@
 hspd = 0;
 vspd = 0;
 grav = 0.4;
+return_time_max = 60;
+return_time = return_time_max;
 life_max = 3;
 life = life_max;
 vspd_min = -7;
 vspd_max = 7;
+state = "idle";
 
 move_dir = 0;
 move_spd = 0;
@@ -24,35 +27,53 @@ moving = function(){
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
 	
-	vspd += grav;
-	vspd = clamp(vspd,vspd_min,vspd_max);
-	if(hspd != 0) image_xscale = sign(hspd);
+	switch(state){
+		case "idle":
+			vspd += grav;
+			vspd = clamp(vspd,vspd_min,vspd_max);
+			if(hspd != 0) image_xscale = sign(hspd);
 	
-	if(_ground){
-			coyote_time = coyote_time_max;
-		} else{
-			coyote_time--;
-		}
+			if(_ground){
+					coyote_time = coyote_time_max;
+				} else{
+					coyote_time--;
+				}
 	
-		if(coyote_time > 0 && _jump){
+				if(coyote_time > 0 && _jump){
+					vspd = 0;
+					coyote_time = 0;
+					vspd -= jump_height;
+				}
+	
+			if(_move){
+				move_dir = point_direction(0,0,_right - _left,0);
+				move_spd = approach(move_spd,move_spd_max,acc);
+				sprite_index = spr_player_walk;
+			} else{
+				sprite_index = spr_player_idle;
+				move_spd = approach(move_spd,0,dcc);
+			}
+	
+			hspd = lengthdir_x(move_spd,move_dir);
+			if(place_meeting(x,y,obj_spiky)) damage();
+	
+			teleport();
+		break;
+		
+		case "dead":
 			vspd = 0;
-			coyote_time = 0;
-			vspd -= jump_height;
-		}
-	
-	if(_move){
-		move_dir = point_direction(0,0,_right - _left,0);
-		move_spd = approach(move_spd,move_spd_max,acc);
-		sprite_index = spr_player_walk;
-	} else{
-		sprite_index = spr_player_idle;
-		move_spd = approach(move_spd,0,dcc);
+			hspd = 0;
+			sprite_index = spr_player_dead;
+			
+			if(return_time > 0){
+				return_time--;
+			} else{
+				return_time = return_time_max;
+				room_restart();
+				state = "idle";
+			}
+		break;
 	}
-	
-	hspd = lengthdir_x(move_spd,move_dir);
-	if(place_meeting(x,y,obj_spiky)) damage();
-	
-	teleport();
 }
 
 damage = function(){
@@ -61,7 +82,7 @@ damage = function(){
 		x = xstart;
 		y = ystart;
 	}else{
-		room_restart();
+		state = "dead";
 	}
 }
 
