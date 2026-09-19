@@ -1,4 +1,14 @@
 
+function draw_text_ext_transformed_border(_x, _y, _string, _border, _sep, _w, _sclx, _scly, _agl, _color_text, _color_border, _alp){
+	draw_text_ext_transformed_colour(_x+_border,_y,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);
+	draw_text_ext_transformed_colour(_x-_border,_y,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);
+	
+	draw_text_ext_transformed_colour(_x,_y+_border,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);
+	draw_text_ext_transformed_colour(_x,_y-_border,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);
+	
+	draw_text_ext_transformed_colour(_x,_y,_string,_sep,_w,_sclx,_scly,_agl,_color_text,_color_text,_color_text,_color_text,_alp);
+}
+
 
 function view_pos(_xpos, _ypos, _camera){
 	

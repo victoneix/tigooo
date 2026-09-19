@@ -1,1 +1,1 @@
-collision();
+event_inherited();

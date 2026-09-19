@@ -1,15 +1,10 @@
-hspd = 0;
-vspd = 0;
-grav = 0.4;
+event_inherited();
 return_time_max = 60;
 return_time = return_time_max;
 life_max = 3;
 life = life_max;
-vspd_min = -7;
-vspd_max = 7;
 state = "idle";
 
-move_dir = 0;
 move_spd = 0;
 move_spd_max = 2;
 acc = .3;
@@ -23,7 +18,7 @@ coyote_time = 0;
 moving = function(){
 	var _right	= keyboard_check(ord("D"));
 	var _left	= keyboard_check(ord("A"));
-	var _jump	= keyboard_check_pressed(ord("W"));
+	var _jump	= keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space);
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
 	
@@ -114,24 +109,4 @@ approach = function(val1 = 0, val2 = 0, amount = 0){
 			return val2;
 	}
 	return val1;
-}
-
-collision = function(){
-	repeat(abs(hspd)){
-		if(place_meeting(x+sign(hspd),y,coll)){
-			hspd = 0;
-			break;
-		}else{
-			x+=sign(hspd);
-		}
-	}
-	
-	repeat(abs(vspd)){
-		if(place_meeting(x,y+sign(vspd),coll)){
-			vspd = 0;
-			break;
-		}else{
-			y+=sign(vspd);
-		}
-	}
 }
