@@ -39,6 +39,7 @@
     {"id":{"name":"obj_mobile_platforms_h","path":"objects/obj_mobile_platforms_h/obj_mobile_platforms_h.yy",},},
     {"id":{"name":"obj_mobile_platforms_w","path":"objects/obj_mobile_platforms_w/obj_mobile_platforms_w.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
+    {"id":{"name":"obj_room","path":"objects/obj_room/obj_room.yy",},},
     {"id":{"name":"obj_spiky","path":"objects/obj_spiky/obj_spiky.yy",},},
     {"id":{"name":"obj_suff_platform","path":"objects/obj_suff_platform/obj_suff_platform.yy",},},
     {"id":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},

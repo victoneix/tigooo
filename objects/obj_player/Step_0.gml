@@ -1,6 +1,8 @@
 moving();
 
-show_debug_message(return_time);
+//show_debug_message(return_time);
+//show_debug_message(hspd);
+//show_debug_message(vspd);
 
 if(keyboard_check_pressed(vk_f1)){
 	var _dt = date_current_datetime();

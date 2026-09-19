@@ -63,13 +63,16 @@ moving = function(){
 		case "dead":
 			vspd = 0;
 			hspd = 0;
+			move_spd = 0;
 			sprite_index = spr_player_dead;
 			
 			if(return_time > 0){
 				return_time--;
 			} else{
+				if(life < 1) life = life_max;
 				return_time = return_time_max;
-				room_restart();
+				x = xstart;
+				y = ystart;
 				state = "idle";
 			}
 		break;
@@ -77,13 +80,10 @@ moving = function(){
 }
 
 damage = function(){
-	if(life > 1){
-		life--;
-		x = xstart;
-		y = ystart;
-	}else{
+	if(life > 0){
 		state = "dead";
-	}
+		life--;
+	} 
 }
 
 teleport = function(){
