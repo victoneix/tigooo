@@ -9,8 +9,8 @@
   "name":"obj_room",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Functions",
+    "path":"folders/Objects/Functions.yy",
   },
   "parentObjectId":null,
   "persistent":false,
