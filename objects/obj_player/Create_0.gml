@@ -1,5 +1,5 @@
 event_inherited();
-return_time_max = 60;
+return_time_max = 30;
 return_time = return_time_max;
 life_max = 3;
 state = "idle";
@@ -76,7 +76,10 @@ moving = function(){
 			if(return_time > 0){
 				return_time--;
 			} else{
-				if(global.life < 1) global.life = life_max;
+				if(global.life < 1){ 
+					global.life = life_max;
+					global.keys = 0;
+				}
 				return_time = return_time_max;
 				room_restart();
 				state = "idle";

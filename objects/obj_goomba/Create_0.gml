@@ -2,15 +2,44 @@
 event_inherited();
 move_spd = 1;
 move_dir = 1;
+move_dir_get = move_dir;
+stop_time_max = 60;
+stop_time = 0;
+state = "idle";
 
 moving = function(){
-	hspd = move_dir * move_spd;
-	if(place_meeting(x+hspd,y,obj_collision)){
-		move_dir *= -1;
+	if(view_pos(x, y, view_camera[0])){
+		if(stop_time > 0){
+			stop_time--;
+		}
+	}else{
+		state = "move";
+		stop_time = stop_time_max;
 	}
 	
-	if(!position_meeting(x+(8*move_dir),y+1,obj_collision)){
-		move_dir *= -1;
+	if(stop_time <= 0 && view_pos(xstart, ystart, view_camera[0])){
+		state = "idle";
+		x = xstart;
+		y = ystart;
+		move_dir = move_dir_get;
+	}
+	
+	switch(state){
+		case "idle":
+			hspd = 0;
+			vspd = 0;
+		break;
+		
+		case "move":
+			hspd = move_dir * move_spd;
+			if(place_meeting(x+hspd,y,obj_collision)){
+				move_dir *= -1;
+			}
+	
+			if(!position_meeting(x+(8*move_dir),y+1,obj_collision)){
+				move_dir *= -1;
+			}
+		break;
 	}
 	teleport();
 }
