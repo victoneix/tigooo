@@ -1,3 +1,5 @@
+global.life = 3;
+global.keys = 0;
 
 function draw_text_ext_transformed_border(_x, _y, _string, _border, _sep, _w, _sclx, _scly, _agl, _color_text, _color_border, _alp){
 	draw_text_ext_transformed_colour(_x+_border,_y,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);

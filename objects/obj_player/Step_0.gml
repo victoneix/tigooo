@@ -1,4 +1,5 @@
 moving();
+if(keyboard_check_pressed(ord("R"))) game_restart();
 
 //show_debug_message(return_time);
 //show_debug_message(hspd);

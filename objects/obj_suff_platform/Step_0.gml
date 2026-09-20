@@ -24,9 +24,4 @@ if(place_meeting(x,y-1,obj_player)){
 
 if(view_pos(xstart,ystart,view_camera[0])){
 	state = "idle";
-} else if(!return_pos && obj_player.return_time <= 0){
-	return_pos = true;
-	if(return_pos){
-		state = "idle";
-	}
-}
+} 

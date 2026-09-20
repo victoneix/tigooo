@@ -2,7 +2,6 @@ event_inherited();
 return_time_max = 60;
 return_time = return_time_max;
 life_max = 3;
-life = life_max;
 state = "idle";
 
 move_spd = 0;
@@ -50,8 +49,8 @@ moving = function(){
 			}
 	
 			hspd = lengthdir_x(move_spd,move_dir);
-			if(place_meeting(x,y,obj_spiky)) damage();
 			
+			if(place_meeting(x,y,obj_spiky)) damage();
 			if(!_ground && vspd > 0){
 				var _collision_e = instance_place(x,y+1,obj_goomba);
 				if(_collision_e){
@@ -77,10 +76,9 @@ moving = function(){
 			if(return_time > 0){
 				return_time--;
 			} else{
-				if(life < 1) life = life_max;
+				if(global.life < 1) global.life = life_max;
 				return_time = return_time_max;
-				x = xstart;
-				y = ystart;
+				room_restart();
 				state = "idle";
 			}
 		break;
@@ -88,9 +86,9 @@ moving = function(){
 }
 
 damage = function(){
-	if(life > 0){
+	if(global.life > 0){
 		state = "dead";
-		life--;
+		global.life--;
 	} 
 }
 
