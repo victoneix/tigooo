@@ -15,9 +15,10 @@ coyote_time_max = 10;
 coyote_time = 0;
 
 moving = function(){
-	var _right	= keyboard_check(ord("D"));
+	var _right	= keyboard_check(ord("D"));		
 	var _left	= keyboard_check(ord("A"));
 	var _jump	= keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space);
+	var _jump_donw	= keyboard_check(ord("W")) || keyboard_check(vk_space);
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
 	
@@ -28,16 +29,20 @@ moving = function(){
 			if(hspd != 0) image_xscale = sign(hspd);
 	
 			if(_ground){
-					coyote_time = coyote_time_max;
-				} else{
-					coyote_time--;
-				}
+				coyote_time = coyote_time_max;
+			} else{
+				coyote_time--;
+			}
 	
-				if(coyote_time > 0 && _jump){
-					vspd = 0;
-					coyote_time = 0;
-					vspd -= jump_height;
-				}
+			if(coyote_time > 0 && _jump){
+				vspd = 0;
+				coyote_time = 0;
+				vspd -= jump_height;
+			}
+				
+			if(!_jump_donw && vspd < 0){
+				vspd = max(vspd,-jump_height/2);
+			}
 	
 			if(_move){
 				move_dir = point_direction(0,0,_right - _left,0);
