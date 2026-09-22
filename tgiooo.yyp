@@ -46,6 +46,7 @@
   "name":"tgiooo",
   "resources":[
     {"id":{"name":"obj_collision","path":"objects/obj_collision/obj_collision.yy",},},
+    {"id":{"name":"obj_colores","path":"objects/obj_colores/obj_colores.yy",},},
     {"id":{"name":"obj_door","path":"objects/obj_door/obj_door.yy",},},
     {"id":{"name":"obj_enemies_parent","path":"objects/obj_enemies_parent/obj_enemies_parent.yy",},},
     {"id":{"name":"obj_entities_parent","path":"objects/obj_entities_parent/obj_entities_parent.yy",},},
@@ -68,6 +69,7 @@
     {"id":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"id":{"name":"scr_global","path":"scripts/scr_global/scr_global.yy",},},
     {"id":{"name":"spr_collision","path":"sprites/spr_collision/spr_collision.yy",},},
+    {"id":{"name":"spr_colores","path":"sprites/spr_colores/spr_colores.yy",},},
     {"id":{"name":"spr_door","path":"sprites/spr_door/spr_door.yy",},},
     {"id":{"name":"spr_e_dead","path":"sprites/spr_e_dead/spr_e_dead.yy",},},
     {"id":{"name":"spr_e","path":"sprites/spr_e/spr_e.yy",},},

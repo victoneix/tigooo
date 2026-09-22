@@ -1,3 +1,17 @@
 randomise();
-chooses = irandom_range(0,5);
-rooms = [rm_level01,rm_level02,rm_level03,rm_level04,rm_level05,rm_level06];
+chooses = -1;
+if(!global.passed[that]){
+var _redo = true;
+	while(_redo){
+		chooses = irandom_range(0,array_length(global.rooms)-1);
+		_redo = false;
+		with(obj_selection){
+			if(id != other.id){
+				if(chooses == other.chooses){
+					_redo = true;
+					break;
+				}
+			}
+		}
+	}
+}
