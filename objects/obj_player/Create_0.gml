@@ -78,6 +78,8 @@ moving = function(){
 			move_spd = 0;
 			sprite_index = spr_player_dead;
 			
+			var _rec_time = global.time_sec;
+			
 			if(return_time > 0){
 				return_time--;
 			} else{
@@ -85,9 +87,15 @@ moving = function(){
 					global.life = life_max;
 					global.keys = 0;
 				}
+				x = xstart;
+				y = ystart;
+				global.time_sec = _rec_time;
 				return_time = return_time_max;
-				room_restart();
 				state = "idle";
+				obj_mobile_platforms_h.state = "idle";
+				obj_mobile_platforms_w.state = "idle";
+				obj_suff_platform.state = "idle";
+				obj_time.state = "idle";
 			}
 		break;
 	}

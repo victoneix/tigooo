@@ -3,6 +3,12 @@ global.keys = 0;
 global.rooms = [rm_level01,rm_level02,rm_level03,rm_level04,rm_level05,rm_level06];
 global.passed = [false,false,false,false,false,false];
 
+global.check_x = 0;
+global.check_y = 0;
+
+global.time_mil = 0;
+global.time_sec = 0;
+
 function draw_text_ext_transformed_border(_x, _y, _string, _border, _sep, _w, _sclx, _scly, _agl, _color_text, _color_border, _alp){
 	draw_text_ext_transformed_colour(_x+_border,_y,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);
 	draw_text_ext_transformed_colour(_x-_border,_y,_string,_sep,_w,_sclx,_scly,_agl,_color_border,_color_border,_color_border,_color_border,_alp);

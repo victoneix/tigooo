@@ -1,6 +1,7 @@
 hspd = 0;
 move_dir = 1;
 move_spd = 1;
+state = "idle";	
 
 teleport = function(){
 	var _siz_w = image_xscale*sprite_get_width(spr_mobile_platforms);
