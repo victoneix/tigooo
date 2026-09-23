@@ -87,8 +87,13 @@ moving = function(){
 					global.life = life_max;
 					global.keys = 0;
 				}
-				x = xstart;
-				y = ystart;
+				if(global.check_y != 0){
+					x = global.check_x;
+					y = global.check_y;
+				}else{
+					x = xstart;
+					y = ystart;
+				}
 				global.time_sec = _rec_time;
 				return_time = return_time_max;
 				state = "idle";
