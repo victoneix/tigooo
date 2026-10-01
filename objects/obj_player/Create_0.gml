@@ -15,10 +15,10 @@ coyote_time_max = 10;
 coyote_time = 0;
 
 moving = function(){
-	var _right	= keyboard_check(ord("D"));		
-	var _left	= keyboard_check(ord("A"));
-	var _jump	= keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space);
-	var _jump_donw	= keyboard_check(ord("W")) || keyboard_check(vk_space);
+	var _right	= keyboard_check(ord("D")) || keyboard_check(vk_right);		
+	var _left	= keyboard_check(ord("A")) || keyboard_check(vk_left);
+	var _jump	= keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up);
+	var _jump_donw	= keyboard_check(ord("W")) || keyboard_check(vk_space) || keyboard_check(vk_up);
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
 	
@@ -86,6 +86,9 @@ moving = function(){
 				if(global.life < 1){ 
 					global.life = life_max;
 					global.keys = 0;
+					global.check_x = 0;
+					global.check_y = 0;
+					room_restart();
 				}
 				if(global.check_y != 0){
 					x = global.check_x;

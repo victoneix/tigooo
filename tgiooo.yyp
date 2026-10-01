@@ -36,7 +36,9 @@
     {"$GMFolder":"","%Name":"Tile Sets","folderPath":"folders/Tile Sets.yy","name":"Tile Sets","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Timelines","folderPath":"folders/Timelines.yy","name":"Timelines","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
-  "ForcedPrefabProjectReferences":[],
+  "ForcedPrefabProjectReferences":[
+    {"link":"io.gamemaker.gm_filter_whitenoise-1.0.0","name":"io.gamemaker.gm_filter_whitenoise-1.0.0","path":"io.gamemaker.gm_filter_whitenoise-1.0.0.yyp",},
+  ],
   "IncludedFiles":[],
   "isEcma":false,
   "LibraryEmitters":[],
@@ -74,8 +76,10 @@
     {"id":{"name":"spr_e_dead","path":"sprites/spr_e_dead/spr_e_dead.yy",},},
     {"id":{"name":"spr_e","path":"sprites/spr_e/spr_e.yy",},},
     {"id":{"name":"spr_font","path":"sprites/spr_font/spr_font.yy",},},
+    {"id":{"name":"spr_key_ui","path":"sprites/spr_key_ui/spr_key_ui.yy",},},
     {"id":{"name":"spr_key","path":"sprites/spr_key/spr_key.yy",},},
     {"id":{"name":"spr_life","path":"sprites/spr_life/spr_life.yy",},},
+    {"id":{"name":"spr_map","path":"sprites/spr_map/spr_map.yy",},},
     {"id":{"name":"spr_mobile_platforms","path":"sprites/spr_mobile_platforms/spr_mobile_platforms.yy",},},
     {"id":{"name":"spr_player_dead","path":"sprites/spr_player_dead/spr_player_dead.yy",},},
     {"id":{"name":"spr_player_idle","path":"sprites/spr_player_idle/spr_player_idle.yy",},},
@@ -90,8 +94,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"roomId":{"name":"rm_level01","path":"rooms/rm_level01/rm_level01.yy",},},
+    {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
