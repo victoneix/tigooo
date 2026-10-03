@@ -22,6 +22,6 @@ if(place_meeting(x,y-1,obj_player)){
 	state = "go";
 }
 
-if(view_pos(xstart,ystart,view_camera[0])){
-	state = "idle";
+if(view_pos(xstart,ystart,view_camera[0]) || global.return_time <= 0){
+	if(state != "idle") state = "idle";
 } 

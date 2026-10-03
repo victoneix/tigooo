@@ -5,6 +5,7 @@ if(keyboard_check_pressed(ord("R"))) game_restart();
 //show_debug_message(hspd);
 //show_debug_message(vspd);
 
+show_debug_message(state);
 if(keyboard_check_pressed(vk_f1)){
 	var _dt = date_current_datetime();
 	var _yea = string(date_get_year(_dt));

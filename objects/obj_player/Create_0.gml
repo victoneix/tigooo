@@ -1,6 +1,7 @@
 event_inherited();
+//audio_play_sound(snd_test,0,1);
 return_time_max = 30;
-return_time = return_time_max;
+global.return_time = return_time_max;
 life_max = 3;
 state = "idle";
 
@@ -21,12 +22,14 @@ moving = function(){
 	var _jump_donw	= keyboard_check(ord("W")) || keyboard_check(vk_space) || keyboard_check(vk_up);
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
+	teleport();
 	
 	switch(state){
 		case "idle":
 			vspd += grav;
 			vspd = clamp(vspd,vspd_min,vspd_max);
 			if(hspd != 0) image_xscale = sign(hspd);
+			image_speed = 1;
 	
 			if(_ground){
 				coyote_time = coyote_time_max;
@@ -68,8 +71,31 @@ moving = function(){
 					damage();
 				}
 			}
-	
-			teleport();
+		break;
+		
+		case "step":
+			sprite_index = spr_player_going;
+			var _up = keyboard_check(ord("W"));
+			var _down = keyboard_check(ord("S"));
+			if(_move){
+				move_dir = point_direction(0,0,_right - _left,0);
+				move_spd = approach(move_spd,move_spd_max,acc);
+			} else{
+				move_spd = approach(move_spd,0,dcc);
+			}
+			
+			if(vspd != 0){
+				image_speed = 1;
+			} else{
+				image_speed = 0;
+			}
+			
+			hspd = lengthdir_x(move_spd,move_dir);
+			vspd = (_down - _up)*move_spd_max;
+			if(!place_meeting(x,y,obj_steps)){
+				state = "idle";
+			}
+			
 		break;
 		
 		case "dead":
@@ -80,8 +106,8 @@ moving = function(){
 			
 			var _rec_time = global.time_sec;
 			
-			if(return_time > 0){
-				return_time--;
+			if(global.return_time > 0){
+				global.return_time--;
 			} else{
 				if(global.life < 1){ 
 					global.life = life_max;
@@ -98,12 +124,9 @@ moving = function(){
 					y = ystart;
 				}
 				global.time_sec = _rec_time;
-				return_time = return_time_max;
+				global.return_time = return_time_max;
 				state = "idle";
-				obj_mobile_platforms_h.state = "idle";
-				obj_mobile_platforms_w.state = "idle";
-				obj_suff_platform.state = "idle";
-				obj_time.state = "idle";
+				//obj_time.state = "idle";
 			}
 		break;
 	}

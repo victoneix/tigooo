@@ -9,6 +9,8 @@ global.passed = [false,false,false,false,false,false];
 global.check_x = 0;
 global.check_y = 0;
 
+global.return_time = 0;
+
 global.time_mil = 0;
 global.time_sec = 0;
 
