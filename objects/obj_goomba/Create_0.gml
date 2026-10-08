@@ -3,7 +3,7 @@ event_inherited();
 move_spd = 1;
 move_dir = 1;
 move_dir_get = move_dir;
-stop_time_max = 60;
+stop_time_max = 10;
 stop_time = 0;
 state = "idle";
 
@@ -32,6 +32,7 @@ moving = function(){
 		
 		case "move":
 			hspd = move_dir * move_spd;
+			if(hspd != 0) image_xscale = sign(hspd);
 			if(place_meeting(x+hspd,y,obj_collision)){
 				move_dir *= -1;
 			}

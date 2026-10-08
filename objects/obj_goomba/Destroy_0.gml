@@ -1,1 +1,1 @@
-instance_create_layer(x,y,layer,obj_goomba_dead);
+//instance_create_layer(x,y,layer,obj_goomba_dead);

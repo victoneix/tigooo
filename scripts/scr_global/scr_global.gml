@@ -1,6 +1,6 @@
 display_set_gui_size(160,120);
 
-global.life = 3;
+global.life = 0;
 global.keys = 0;
 
 //global.rooms = [rm_level01,rm_level02,rm_level03,rm_level04,rm_level05,rm_level06];

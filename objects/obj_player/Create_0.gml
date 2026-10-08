@@ -2,7 +2,8 @@ event_inherited();
 //audio_play_sound(snd_test,0,1);
 return_time_max = 30;
 global.return_time = return_time_max;
-life_max = 3;
+life_max = 10;
+global.life = life_max;
 state = "idle";
 
 move_spd = 0;
@@ -15,14 +16,19 @@ jump_height = 6;
 coyote_time_max = 10;
 coyote_time = 0;
 
+colli = false;
+	
 moving = function(){
 	var _right	= keyboard_check(ord("D")) || keyboard_check(vk_right);		
 	var _left	= keyboard_check(ord("A")) || keyboard_check(vk_left);
+	var _dowm	= keyboard_check(ord("S")) || keyboard_check(vk_down);
 	var _jump	= keyboard_check_pressed(ord("W")) || keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up);
 	var _jump_donw	= keyboard_check(ord("W")) || keyboard_check(vk_space) || keyboard_check(vk_up);
 	var _move	= (_right - _left) != 0;
 	var _ground	= place_meeting(x,y+1,coll);
 	teleport();
+
+	show_debug_message(colli);
 	
 	switch(state){
 		case "idle":
@@ -30,7 +36,7 @@ moving = function(){
 			vspd = clamp(vspd,vspd_min,vspd_max);
 			if(hspd != 0) image_xscale = sign(hspd);
 			image_speed = 1;
-	
+			if(_dowm) state = "lowered";
 			if(_ground){
 				coyote_time = coyote_time_max;
 			} else{
@@ -73,10 +79,18 @@ moving = function(){
 			}
 		break;
 		
+		case "lowered":
+			if(!_dowm) state = "idle";
+			vspd += grav;
+			vspd = clamp(vspd,vspd_min,vspd_max);
+			hspd = 0;
+			sprite_index = spr_player_crouching;
+		break;
+		
 		case "step":
 			sprite_index = spr_player_going;
-			var _up = keyboard_check(ord("W"));
-			var _down = keyboard_check(ord("S"));
+			var _up = keyboard_check(ord("W")) || keyboard_check(vk_up);
+			var _down = keyboard_check(ord("S")) || keyboard_check(vk_down);
 			if(_move){
 				move_dir = point_direction(0,0,_right - _left,0);
 				move_spd = approach(move_spd,move_spd_max,acc);
@@ -116,7 +130,7 @@ moving = function(){
 					global.check_y = 0;
 					room_restart();
 				}
-				if(global.check_y != 0){
+				if(global.check_x != 0){
 					x = global.check_x;
 					y = global.check_y;
 				}else{
@@ -126,7 +140,6 @@ moving = function(){
 				global.time_sec = _rec_time;
 				global.return_time = return_time_max;
 				state = "idle";
-				//obj_time.state = "idle";
 			}
 		break;
 	}
